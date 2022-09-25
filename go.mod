@@ -1,3 +1,3 @@
 module GoPolling-NW
 
-go 1.19
+go 1.18.5
