@@ -66,18 +66,18 @@ func callCmpApi() {
 		msg := "Successful call to URL: " + top10CryptoUrl + ".\nResponse Body Size: " + sz2string + " bytes."
 		lgglyClient.EchoSend("info", msg)
 		res := CmpResponse{}
-		err := json.Unmarshal(body, &res)
+		err = json.Unmarshal(body, &res)
 		// If error during marshalling output to loggly
 		if err != nil {
 			lgglyClient.EchoSend("error", err.Error())
 			return
 		}
 		// Prints Unmarshalled structure in key:value pair format
-		fmt.Printf("%+v", res)
+		fmt.Printf("%+v\n", res)
 
 	}
 
-	// Gracefully close the client asdad
+	// Gracefully close the client
 	err = resp.Body.Close()
 	if err != nil {
 		lgglyClient.EchoSend("error", err.Error())
