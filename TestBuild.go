@@ -11,11 +11,6 @@ import (
 	//loggly "github.com/nullwulf/loggly"
 )
 
-type ResponseWriterWithLength struct {
-	http.ResponseWriter
-	length int
-}
-
 func main() {
 
 	// CMP = Coin Market Pro API
