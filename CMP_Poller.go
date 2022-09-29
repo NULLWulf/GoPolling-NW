@@ -47,19 +47,29 @@ func main() {
 	sz := unsafe.Sizeof(body)
 	sz2string := strconv.FormatInt(int64(sz), 10)
 
+	// If error during call output to loggly
 	if err != nil {
 		lgglyClient.EchoSend("error", err.Error())
 		return
+		// Otherwise Unmarshall to CMP data structure
 	} else {
 		msg := "Successful call to URL: " + top10CryptoUrl + ".\nResponse Body Size: " + sz2string + " bytes."
 		lgglyClient.EchoSend("info", msg)
 		res := CmpResponse{}
 		err := json.Unmarshal(body, &res)
+		// If error during marshalling output to loggly
 		if err != nil {
 			lgglyClient.EchoSend("error", err.Error())
 			return
 		}
 		fmt.Printf("%+v", res)
 
+	}
+
+	// Gracefully close the client
+	err = resp.Body.Close()
+	if err != nil {
+		lgglyClient.EchoSend("error", err.Error())
+		return
 	}
 }
