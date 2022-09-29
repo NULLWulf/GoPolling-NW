@@ -8,17 +8,27 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"time"
 	"unsafe"
 )
+
+const top10CryptoUrl = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=10"
+const tag = "Top10Cryptos"
 
 func main() {
 
 	// CMP = Coin Market Pro API
 	// URL Endpoint that queries for top most valuable cryptos in USD
-	top10CryptoUrl := "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=10"
 	// Loggly Tag
-	tag := "Top10Cryptos"
 
+	callCmpApi()
+	ticker := time.NewTicker(1 * time.Hour)
+	for _ = range ticker.C {
+		callCmpApi()
+	}
+}
+
+func callCmpApi() {
 	// Instantiate Loggly Client
 	lgglyClient := loggly.New(tag)
 
