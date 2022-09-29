@@ -2,37 +2,62 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"github.com/nullwulf/loggly"
+	"io"
 	"net/http"
 	"os"
+	"strconv"
+	"unsafe"
 	//loggly "github.com/nullwulf/loggly"
 )
 
+type ResponseWriterWithLength struct {
+	http.ResponseWriter
+	length int
+}
+
 func main() {
 
-	//lgglyKey := os.Getenv("LOGGLY_TOKEN")
-	cmpKey := os.Getenv("CMP_TOKEN")
-
+	// CMP = Coin Market Pro API
+	// URL Endpoint that queries for top most valuable cryptos in USD
 	top10CryptoUrl := "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=10"
-	//tag := "Top10Cryptos"
+	// Loggly Tag
+	tag := "Top10Cryptos"
 
-	//lgglyClient := loggly.New(tag)
+	// Instantiate Loggly Client
+	lgglyClient := loggly.New(tag)
 
-	cmpClient := http.Client{}
+	// Instantiate CMP Client and set headers
+	cmpClient := &http.Client{}
 	req, err := http.NewRequest("GET", top10CryptoUrl, nil)
-	if err != nil {
-		fmt.Printf("error %s", err)
-		return
-	}
-	req.Header.Add("X-CMC_PRO_API_KEY", cmpKey)
+	req.Header.Add("X-CMC_PRO_API_KEY", os.Getenv("CMP_TOKEN"))
 	req.Header.Add("Content-type", "application/json")
 
-	resp, err := cmpClient.Do(req)
+	// If error during cmp client initialize output to loggly
 	if err != nil {
-		fmt.Printf("error %s", err)
+		lgglyClient.EchoSend("error", err.Error())
 		return
 	}
-	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
-	fmt.Printf("Body : %s", body)
+
+	// Execute API call to CMP
+	resp, err := cmpClient.Do(req)
+	// If error during client request output error to loggly
+	if err != nil {
+		lgglyClient.EchoSend("error", err.Error())
+		return
+	}
+
+	// Read response body of request and get body size
+	body, err := io.ReadAll(resp.Body)
+	sz := unsafe.Sizeof(body)
+	sz2string := strconv.FormatInt(int64(sz), 10)
+
+	if err != nil {
+		lgglyClient.EchoSend("error", err.Error())
+		return
+	} else {
+		msg := "Successful call to URL: " + top10CryptoUrl + ".\nResponse Body Size: " + sz2string + " bytes."
+		lgglyClient.EchoSend("info", msg)
+		fmt.Println(string(body))
+	}
 }
