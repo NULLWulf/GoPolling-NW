@@ -62,6 +62,7 @@ func main() {
 			lgglyClient.EchoSend("error", err.Error())
 			return
 		}
+		// Prints Unmarshalled structure in key:value pair format
 		fmt.Printf("%+v", res)
 
 	}
