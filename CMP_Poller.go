@@ -67,7 +67,7 @@ func main() {
 
 	}
 
-	// Gracefully close the client
+	// Gracefully close the client asdad
 	err = resp.Body.Close()
 	if err != nil {
 		lgglyClient.EchoSend("error", err.Error())
