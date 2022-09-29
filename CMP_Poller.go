@@ -8,7 +8,6 @@ import (
 	"os"
 	"strconv"
 	"unsafe"
-	//loggly "github.com/nullwulf/loggly"
 )
 
 func main() {
