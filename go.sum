@@ -1,0 +1,4 @@
+github.com/TwiN/go-color v1.1.0 h1:yhLAHgjp2iAxmNjDiVb6Z073NE65yoaPlcki1Q22yyQ=
+github.com/TwiN/go-color v1.1.0/go.mod h1:aKVf4e1mD4ai2FtPifkDPP5iyoCwiK08YGzGwerjKo0=
+github.com/nullwulf/loggly v0.0.0-20220928223524-974e4cfcfdda h1:Dk8fE0ZtOS6ELb/XkGaqrrocJmSvVVTlasxiiO0Lgos=
+github.com/nullwulf/loggly v0.0.0-20220928223524-974e4cfcfdda/go.mod h1:fUmkNbOo0Lr7GP8i8whE4Tt2fa7L/aruF9Z0tjNwbkA=
