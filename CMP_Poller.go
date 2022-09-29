@@ -1,6 +1,8 @@
 package main
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"github.com/nullwulf/loggly"
 	"io"
@@ -52,6 +54,17 @@ func main() {
 	} else {
 		msg := "Successful call to URL: " + top10CryptoUrl + ".\nResponse Body Size: " + sz2string + " bytes."
 		lgglyClient.EchoSend("info", msg)
-		fmt.Println(string(body))
+		formatedJson := jsonPrettyPrint(string(body))
+		fmt.Println(formatedJson)
 	}
+}
+
+// Function that pretty prints raw HTTP response.
+func jsonPrettyPrint(in string) string {
+	var out bytes.Buffer
+	err := json.Indent(&out, []byte(in), "", "\t")
+	if err != nil {
+		return in
+	}
+	return out.String()
 }
