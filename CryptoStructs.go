@@ -16,11 +16,11 @@ type CmpResponse struct {
 
 // CryptoElem data type containing nominal and statistical data
 type CryptoElem struct {
-	Name        string `json:"name"`
-	Symbol      string `json:"symbol"`
-	TotalSupply int    `json:"total_supply"`
-	CmcRank     int    `json:"cmc_rank"`
-	CryptoQuote Quote  `json:"quote"`
+	Name   string `json:"name"`
+	Symbol string `json:"symbol"`
+	//TotalSupply int    `json:"total_supply"`
+	CmcRank     int   `json:"cmc_rank"`
+	CryptoQuote Quote `json:"quote"`
 }
 
 // Quote containing data relative data to respective queried currency in this case USD
