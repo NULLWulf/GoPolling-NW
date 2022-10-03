@@ -9,11 +9,12 @@ import (
 	"os"
 	"strconv"
 	"time"
-	"unsafe"
 )
 
-const top10CryptoUrl = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=10"
-const tag = "Top10Cryptos"
+const (
+	top10CryptoUrl = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=10"
+	tag            = "Top10Cryptos"
+)
 
 func main() {
 
@@ -54,7 +55,7 @@ func callCmpApi() {
 
 	// Read response body of request and get body size
 	body, err := io.ReadAll(resp.Body)
-	sz := unsafe.Sizeof(body)
+	sz := len(body)
 	sz2string := strconv.FormatInt(int64(sz), 10)
 
 	// If error during call output to loggly

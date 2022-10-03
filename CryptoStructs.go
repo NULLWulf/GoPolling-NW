@@ -6,35 +6,35 @@ type cryptoStats struct {
 	symbol      string
 	totalSupply int
 	cmpId       int
-	perChange   USD
+	perChange   USDRelativeData
 }
 
 // CmpResponse Response body of CMP api, only interested in data array of crypto objects
 type CmpResponse struct {
-	Status RespStatus   `json:"status"`
-	Data   []CryptoElem `json:"data"`
+	Status RespStatus      `json:"status"`
+	Data   []CryptoElement `json:"data"`
 }
 
 type RespStatus struct {
 	Timestamp string `json:"timestamp"`
 }
 
-// CryptoElem data type containing nominal and statistical data
-type CryptoElem struct {
-	Name   string `json:"name"`
-	Symbol string `json:"symbol"`
-	//TotalSupply int    `json:"total_supply"`
-	CmcRank     int   `json:"cmc_rank"`
-	CryptoQuote Quote `json:"quote"`
+// CryptoElement data type containing nominal and statistical data
+type CryptoElement struct {
+	Name        string `json:"name"`
+	Symbol      string `json:"symbol"`
+	CmcRank     int    `json:"cmc_rank"`
+	CryptoQuote Quote  `json:"quote"`
 }
 
 // Quote containing data relative data to respective queried currency in this case USD
 type Quote struct {
-	USDStats USD `json:"USD"`
+	USDStats USDRelativeData `json:"USD"`
 }
 
-// USD United States dollar relative statistics
-type USD struct {
+// USDRelativeData United States Dollar Relative Data
+type USDRelativeData struct {
+	TotalSupply       int     `json:"total_supply"`
 	Price             float64 `json:"price"`
 	Volume24hr        float64 `json:"volume_24h"`
 	VolumeChange24hr  float64 `json:"volume_change_24h"`
