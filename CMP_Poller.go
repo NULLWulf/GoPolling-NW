@@ -69,7 +69,6 @@ func callCmpApi() {
 		res := CmpResponse{}
 		err = json.Unmarshal(body, &res)
 		// If error during marshalling output to loggly
-
 		statuses := res.Data
 		for i := 0; i < len(statuses); i++ {
 			statuses[i].CryptoQuote.USDStats.Price = r(statuses[i].CryptoQuote.USDStats.Price)
@@ -81,7 +80,6 @@ func callCmpApi() {
 			statuses[i].CryptoQuote.USDStats.PercentChange30d = r(statuses[i].CryptoQuote.USDStats.PercentChange30d)
 			statuses[i].CryptoQuote.USDStats.PercentChange60d = r(statuses[i].CryptoQuote.USDStats.PercentChange60d)
 			statuses[i].CryptoQuote.USDStats.PercentChange90d = r(statuses[i].CryptoQuote.USDStats.PercentChange90d)
-
 		}
 
 		if err != nil {
