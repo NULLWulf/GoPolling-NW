@@ -69,19 +69,7 @@ func callCmpApi() {
 		res := CmpResponse{}
 		err = json.Unmarshal(body, &res)
 		// If error during marshalling output to loggly
-		statuses := res.Data
-		for i := 0; i < len(statuses); i++ {
-			statuses[i].CryptoQuote.USDStats.Price = r(statuses[i].CryptoQuote.USDStats.Price)
-			statuses[i].CryptoQuote.USDStats.Volume24hr = r(statuses[i].CryptoQuote.USDStats.Volume24hr)
-			statuses[i].CryptoQuote.USDStats.VolumeChange24hr = r(statuses[i].CryptoQuote.USDStats.VolumeChange24hr)
-			statuses[i].CryptoQuote.USDStats.PercentChange1hr = r(statuses[i].CryptoQuote.USDStats.PercentChange1hr)
-			statuses[i].CryptoQuote.USDStats.PercentChange24hr = r(statuses[i].CryptoQuote.USDStats.PercentChange24hr)
-			statuses[i].CryptoQuote.USDStats.PercentChange7d = r(statuses[i].CryptoQuote.USDStats.PercentChange7d)
-			statuses[i].CryptoQuote.USDStats.PercentChange30d = r(statuses[i].CryptoQuote.USDStats.PercentChange30d)
-			statuses[i].CryptoQuote.USDStats.PercentChange60d = r(statuses[i].CryptoQuote.USDStats.PercentChange60d)
-			statuses[i].CryptoQuote.USDStats.PercentChange90d = r(statuses[i].CryptoQuote.USDStats.PercentChange90d)
-		}
-
+		roundIter(res.Data)
 		if err != nil {
 			lgglyClient.EchoSend("error", err.Error())
 			return
