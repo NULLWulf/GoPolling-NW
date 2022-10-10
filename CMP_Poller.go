@@ -73,7 +73,9 @@ func callCmpApi() {
 			lgglyClient.EchoSend("error", err.Error())
 			return
 		}
-		lgglyClient.EchoSend("verbose", cryptoStructPrint(res))
+		//Prints Unmarshalled structure in key:value pair format
+		//fmt.Printf("%+v\n", res)
+		cryptoStructPrint(res)
 
 	}
 
