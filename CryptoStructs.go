@@ -1,5 +1,7 @@
 package main
 
+import "math"
+
 // Flattened structure of CMP crypto data
 type cryptoStats struct {
 	name        string
@@ -34,7 +36,6 @@ type Quote struct {
 
 // USDRelativeData United States Dollar Relative Data
 type USDRelativeData struct {
-	TotalSupply       int     `json:"total_supply"`
 	Price             float64 `json:"price"`
 	Volume24hr        float64 `json:"volume_24h"`
 	VolumeChange24hr  float64 `json:"volume_change_24h"`
@@ -44,4 +45,9 @@ type USDRelativeData struct {
 	PercentChange30d  float64 `json:"percent_change_30d"`
 	PercentChange60d  float64 `json:"percent_change_60d"`
 	PercentChange90d  float64 `json:"percent_change_90d"`
+}
+
+// Round to 3 decimal places at most
+func r(r float64) float64 {
+	return math.Round(r*1000) / 1000
 }
