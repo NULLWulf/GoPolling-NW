@@ -1,6 +1,10 @@
 package main
 
-import "math"
+import (
+	"fmt"
+	"math"
+	"strings"
+)
 
 // Flattened structure of CMP crypto data
 type cryptoStats struct {
@@ -64,4 +68,27 @@ func roundIter(statuses []CryptoElement) {
 		statuses[i].CryptoQuote.USDStats.PercentChange60d = r(statuses[i].CryptoQuote.USDStats.PercentChange60d)
 		statuses[i].CryptoQuote.USDStats.PercentChange90d = r(statuses[i].CryptoQuote.USDStats.PercentChange90d)
 	}
+}
+
+func cryptoStructPrint(cryptoStruct CmpResponse) {
+	var b strings.Builder
+	fmt.Fprintf(&b, "----==== Displaying Top 10 Ranked Cryptos per CoinMarket PRO API ====----\n")
+	fmt.Fprintf(&b, "----====----====----====----====----====----===----===----===----===----===---- \n")
+	fmt.Fprintf(&b, "\n")
+	for i := 0; i < len(cryptoStruct.Data); i++ {
+		p := cryptoStruct.Data[i].CryptoQuote.USDStats
+		fmt.Fprintf(&b, "---=== Rank %v : %v ===---\n", cryptoStruct.Data[i].CmcRank, cryptoStruct.Data[i].Name)
+		fmt.Fprintf(&b, "Price: $%v\n", p.Price)
+		fmt.Fprintf(&b, "Volume 24hr: %v\n", p.Volume24hr)
+		fmt.Fprintf(&b, "Volume Change 24hr: %v\n", p.VolumeChange24hr)
+		fmt.Fprintf(&b, "--== Relative Movement ==--\n")
+		fmt.Fprintf(&b, "1 Hourr: %v%%\n", p.PercentChange1hr)
+		fmt.Fprintf(&b, "24 Hour: %v\n%%", p.PercentChange24hr)
+		fmt.Fprintf(&b, "7 Day: %v%%\n", p.PercentChange7d)
+		fmt.Fprintf(&b, "30 Day: %v%%\n", p.PercentChange30d)
+		fmt.Fprintf(&b, "60 Day: %v%%\n", p.PercentChange60d)
+		fmt.Fprintf(&b, "90 Day: %v%%\n", p.PercentChange90d)
+		fmt.Fprintf(&b, "\n")
+	}
+	fmt.Println(b.String())
 }

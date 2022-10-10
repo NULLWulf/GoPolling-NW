@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/nullwulf/loggly"
 	"io"
 	"net/http"
@@ -75,7 +74,8 @@ func callCmpApi() {
 			return
 		}
 		//Prints Unmarshalled structure in key:value pair format
-		fmt.Printf("%+v\n", res)
+		//fmt.Printf("%+v\n", res)
+		cryptoStructPrint(res)
 
 	}
 
