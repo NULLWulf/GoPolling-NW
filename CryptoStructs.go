@@ -70,7 +70,7 @@ func roundIter(statuses []CryptoElement) {
 	}
 }
 
-func cryptoStructPrint(cryptoStruct CmpResponse) {
+func cryptoStructPrint(cryptoStruct CmpResponse) string {
 	var b strings.Builder
 	fmt.Fprintf(&b, "----==== Displaying Top 10 Ranked Cryptos per CoinMarket PRO API ====----\n")
 	fmt.Fprintf(&b, "----====----====----====----====----====----===----===----===----===----===---- \n")
@@ -90,5 +90,5 @@ func cryptoStructPrint(cryptoStruct CmpResponse) {
 		fmt.Fprintf(&b, "90 Day: %v%%\n", p.PercentChange90d)
 		fmt.Fprintf(&b, "\n")
 	}
-	fmt.Println(b.String())
+	return b.String()
 }
