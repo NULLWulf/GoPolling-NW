@@ -75,7 +75,7 @@ func callCmpApi() {
 		}
 		// Prints Unmarshalled structure in key:value pair format
 		fmt.Printf("%+v\n", res)
-		dynamodbInsert(res)
+		dynamodbInsert(res, lgglyClient)
 
 	}
 

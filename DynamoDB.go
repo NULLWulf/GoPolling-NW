@@ -8,9 +8,9 @@ import (
 	"github.com/nullwulf/loggly"
 )
 
-func dynamodbInsert(insert CmpResponse) {
+func dynamodbInsert(insert CmpResponse, lgglyClient *loggly.ClientType) {
 
-	lgglyClient := loggly.New(tag)
+	lgglyClient.EchoSend("info", "\nAttempting dynamodb call.")
 
 	// create an aws session
 	sess := session.Must(session.NewSession(&aws.Config{
