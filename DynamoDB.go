@@ -31,18 +31,17 @@ func dynamodbInsert(insert CmpResponse, lgglyClient *loggly.ClientType) {
 
 	// create the api params
 	params := &dynamodb.PutItemInput{
-		TableName: aws.String(""),
+		TableName: aws.String("nwolf-top10cryptos"),
 		Item:      insertMap,
 	}
 
 	// put the item
-	resp, err := db.PutItem(params)
+	_, err = db.PutItem(params)
 	if err != nil {
 		lgglyClient.EchoSend("error", err.Error())
 		return
 	}
 
 	// print the response data
-	lgglyClient.EchoSend("debug", "Pre response info output")
-	lgglyClient.EchoSend("info", resp.String())
+	lgglyClient.EchoSend("info", "Item added successfully to DynamoDB")
 }

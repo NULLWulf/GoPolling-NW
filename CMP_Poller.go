@@ -22,7 +22,7 @@ func main() {
 	// Loggly Tag
 
 	callCmpApi()
-	ticker := time.NewTicker(1 * time.Hour)
+	ticker := time.NewTicker(10 * time.Second)
 	for _ = range ticker.C {
 		callCmpApi()
 	}
@@ -74,7 +74,9 @@ func callCmpApi() {
 			return
 		}
 
+		lgglyClient.EchoSend("info", "Assigned Timestamp to time.")
 		res.Time = res.Status.Timestamp
+		lgglyClient.EchoSend("info", cryptoStructPrint(res))
 		// Prints Unmarshalled structure in key:value pair format
 		dynamodbInsert(res, lgglyClient)
 

@@ -17,7 +17,7 @@ type cryptoStats struct {
 
 // CmpResponse Response body of CMP api, only interested in data array of crypto objects
 type CmpResponse struct {
-	Time   string          `json:"time,omitempty"`
+	Time   string
 	Status RespStatus      `json:"status"`
 	Data   []CryptoElement `json:"data"`
 }
@@ -71,7 +71,7 @@ func roundIter(statuses []CryptoElement) {
 	}
 }
 
-func cryptoStructPrint(cryptoStruct CmpResponse) {
+func cryptoStructPrint(cryptoStruct CmpResponse) string {
 	var b strings.Builder
 	fmt.Fprintf(&b, "----==== Displaying Top 10 Ranked Cryptos per CoinMarket PRO API ====----\n")
 	fmt.Fprintf(&b, "----====----====----====----====----====----===----===----===----===----===---- \n")
@@ -79,12 +79,13 @@ func cryptoStructPrint(cryptoStruct CmpResponse) {
 	for i := 0; i < len(cryptoStruct.Data); i++ {
 		p := cryptoStruct.Data[i].CryptoQuote.USDStats
 		fmt.Fprintf(&b, "---=== Rank %v : %v ===---\n", cryptoStruct.Data[i].CmcRank, cryptoStruct.Data[i].Name)
+		fmt.Fprintf(&b, "---=== Time Polled %v  ===---\n", cryptoStruct.Time)
 		fmt.Fprintf(&b, "Price: $%v\n", p.Price)
 		fmt.Fprintf(&b, "Volume 24hr: %v\n", p.Volume24hr)
 		fmt.Fprintf(&b, "Volume Change 24hr: %v\n", p.VolumeChange24hr)
 		fmt.Fprintf(&b, "--== Relative Movement ==--\n")
 		fmt.Fprintf(&b, "1 Hourr: %v%%\n", p.PercentChange1hr)
-		fmt.Fprintf(&b, "24 Hour: %v\n%%", p.PercentChange24hr)
+		fmt.Fprintf(&b, "24 Hour: %v%%\n", p.PercentChange24hr)
 		fmt.Fprintf(&b, "7 Day: %v%%\n", p.PercentChange7d)
 		fmt.Fprintf(&b, "30 Day: %v%%\n", p.PercentChange30d)
 		fmt.Fprintf(&b, "60 Day: %v%%\n", p.PercentChange60d)
@@ -92,4 +93,6 @@ func cryptoStructPrint(cryptoStruct CmpResponse) {
 		fmt.Fprintf(&b, "\n")
 	}
 	fmt.Println(b.String())
+
+	return b.String()
 }
