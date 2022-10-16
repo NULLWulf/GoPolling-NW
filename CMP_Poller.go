@@ -73,9 +73,10 @@ func callCmpApi() {
 			lgglyClient.EchoSend("error", err.Error())
 			return
 		}
-		//Prints Unmarshalled structure in key:value pair format
-		//fmt.Printf("%+v\n", res)
-		cryptoStructPrint(res)
+    
+		// Prints Unmarshalled structure in key:value pair format
+		fmt.Printf("%+v\n", res)
+		dynamodbInsert(res, lgglyClient)
 
 	}
 
