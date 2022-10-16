@@ -17,6 +17,7 @@ type cryptoStats struct {
 
 // CmpResponse Response body of CMP api, only interested in data array of crypto objects
 type CmpResponse struct {
+	Time   string          `json:"time,omitempty"`
 	Status RespStatus      `json:"status"`
 	Data   []CryptoElement `json:"data"`
 }

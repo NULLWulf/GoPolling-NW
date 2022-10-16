@@ -74,6 +74,7 @@ func callCmpApi() {
 			return
 		}
 
+		res.Time = res.Status.Timestamp
 		// Prints Unmarshalled structure in key:value pair format
 		dynamodbInsert(res, lgglyClient)
 
