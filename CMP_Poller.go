@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/nullwulf/loggly"
 	"io"
 	"net/http"
@@ -69,10 +68,12 @@ func callCmpApi() {
 		res := CmpResponse{}
 		err = json.Unmarshal(body, &res)
 		// If error during marshalling output to loggly
+		roundIter(res.Data)
 		if err != nil {
 			lgglyClient.EchoSend("error", err.Error())
 			return
 		}
+    
 		// Prints Unmarshalled structure in key:value pair format
 		fmt.Printf("%+v\n", res)
 		dynamodbInsert(res, lgglyClient)
