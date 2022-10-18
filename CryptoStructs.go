@@ -92,7 +92,7 @@ func cryptoStructPrint(cryptoStruct CmpResponse) string {
 		fmt.Fprintf(&b, "90 Day: %v%%\n", p.PercentChange90d)
 		fmt.Fprintf(&b, "\n")
 	}
-	fmt.Println(b.String())
+	//fmt.Println(b.String())
 
 	return b.String()
 }

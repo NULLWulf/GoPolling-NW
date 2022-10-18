@@ -12,7 +12,6 @@ import (
 
 const (
 	top10CryptoUrl = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=10"
-	tag            = "Top10Cryptos"
 )
 
 func main() {
@@ -29,6 +28,11 @@ func main() {
 }
 
 func callCmpApi() {
+
+	tag := os.Getenv("APP_TAG")
+	if tag == "" {
+		tag = "Top10Cryptos"
+	}
 	// Instantiate Loggly Client
 	lgglyClient := loggly.New(tag)
 
