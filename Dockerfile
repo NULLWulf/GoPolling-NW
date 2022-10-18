@@ -16,7 +16,9 @@ COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certifi
 
 WORKDIR /bin/
 
-COPY --from=builder //home/nullwulf/F22/CSC482/GoPolling-NW/app .
+COPY --from=builder /home/nullwulf/F22/CSC482/GoPolling-NW/app .
+COPY --from=builder /home/nullwulf/F22/CSC482/GoPolling-NW/.env .
+
 
 CMD [ "./app" ]
 

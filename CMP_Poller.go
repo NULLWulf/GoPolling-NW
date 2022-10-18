@@ -2,8 +2,10 @@ package main
 
 import (
 	"encoding/json"
+	"github.com/joho/godotenv"
 	"github.com/nullwulf/loggly"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	"strconv"
@@ -19,7 +21,10 @@ func main() {
 	// CMP = Coin Market Pro API
 	// URL Endpoint that queries for top most valuable cryptos in USD
 	// Loggly Tag
-
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 	callCmpApi()
 	ticker := time.NewTicker(1 * time.Hour)
 	for _ = range ticker.C {
