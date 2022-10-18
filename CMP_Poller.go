@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/joho/godotenv"
 	"github.com/nullwulf/loggly"
 	"io"
@@ -84,7 +85,8 @@ func callCmpApi() {
 		}
 
 		lgglyClient.EchoSend("info", "Assigned Timestamp to time.")
-		res.Time = res.Status.Timestamp
+		res.Time = time.Now().UTC().Format(time.RFC822Z)
+		fmt.Println(res.Time)
 		lgglyClient.EchoSend("info", cryptoStructPrint(res))
 		// Prints Unmarshalled structure in key:value pair format
 		dynamodbInsert(res, lgglyClient)
