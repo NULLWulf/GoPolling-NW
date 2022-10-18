@@ -2,13 +2,13 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/joho/godotenv"
 	"github.com/nullwulf/loggly"
 	"io"
 	"log"
 	"net/http"
 	"os"
+	"sort"
 	"strconv"
 	"time"
 )
@@ -19,14 +19,16 @@ const (
 
 func main() {
 
-	// CMP = Coin Market Pro API
-	// URL Endpoint that queries for top most valuable cryptos in USD
-	// Loggly Tag
+	// Loads Enviromental variables into program
+	// e.g AWS, Loggly CMP token.
 	err := godotenv.Load()
+	// If detects an error loading .env file terminates program
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
+	// Initial call of CMP Api
 	callCmpApi()
+	// Set to call every hour
 	ticker := time.NewTicker(1 * time.Hour)
 	for _ = range ticker.C {
 		callCmpApi()
@@ -35,6 +37,7 @@ func main() {
 
 func callCmpApi() {
 
+	// Attemps to get APP_TAG from environment variables file.
 	tag := os.Getenv("APP_TAG")
 	if tag == "" {
 		tag = "Top10Cryptos"
@@ -78,18 +81,21 @@ func callCmpApi() {
 		res := CmpResponse{}
 		err = json.Unmarshal(body, &res)
 		// If error during marshalling output to loggly
+		res.Time = time.Now().UTC().Format(time.RFC822Z)
+		sort.Slice(res.Data, func(i, j int) bool {
+			return res.Data[i].CryptoQuote.USDStats.Price < res.Data[j].CryptoQuote.USDStats.Price
+		})
 		roundIter(res.Data)
+
 		if err != nil {
 			lgglyClient.EchoSend("error", err.Error())
 			return
 		}
+		// Sets cleaner time to Time object
 
-		lgglyClient.EchoSend("info", "Assigned Timestamp to time.")
-		res.Time = time.Now().UTC().Format(time.RFC822Z)
-		fmt.Println(res.Time)
 		lgglyClient.EchoSend("info", cryptoStructPrint(res))
 		// Prints Unmarshalled structure in key:value pair format
-		dynamodbInsert(res, lgglyClient)
+		dynamodbInsert(&res, lgglyClient)
 
 	}
 

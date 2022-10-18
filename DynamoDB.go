@@ -8,7 +8,7 @@ import (
 	"github.com/nullwulf/loggly"
 )
 
-func dynamodbInsert(insert CmpResponse, lgglyClient *loggly.ClientType) {
+func dynamodbInsert(insert *CmpResponse, lgglyClient *loggly.ClientType) {
 
 	lgglyClient.EchoSend("info", "\nAttempting dynamodb call.")
 

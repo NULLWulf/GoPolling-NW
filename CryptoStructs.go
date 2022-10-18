@@ -58,7 +58,10 @@ func r(r float64) float64 {
 }
 
 func roundIter(statuses []CryptoElement) {
+	rankCounter := 10
 	for i := 0; i < len(statuses); i++ {
+		statuses[i].CmcRank = rankCounter
+		rankCounter--
 		statuses[i].CryptoQuote.USDStats.Price = r(statuses[i].CryptoQuote.USDStats.Price)
 		statuses[i].CryptoQuote.USDStats.Volume24hr = r(statuses[i].CryptoQuote.USDStats.Volume24hr)
 		statuses[i].CryptoQuote.USDStats.VolumeChange24hr = r(statuses[i].CryptoQuote.USDStats.VolumeChange24hr)
