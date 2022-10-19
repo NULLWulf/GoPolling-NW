@@ -57,6 +57,8 @@ func r(r float64) float64 {
 	return math.Round(r*1000) / 1000
 }
 
+// Rounds values to float and also assigns a rank based on position in the structure
+// assumes array is sorted beforehand
 func roundIter(statuses []CryptoElement) {
 	rankCounter := 10
 	for i := 0; i < len(statuses); i++ {

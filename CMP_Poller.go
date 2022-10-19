@@ -19,7 +19,7 @@ const (
 
 func main() {
 
-	// Loads Enviromental variables into program
+	// Loads Environmental variables into program
 	// e.g AWS, Loggly CMP token.
 	err := godotenv.Load()
 	// If detects an error loading .env file terminates program
@@ -29,7 +29,7 @@ func main() {
 	// Initial call of CMP Api
 	callCmpApi()
 	// Set to call every hour
-	ticker := time.NewTicker(1 * time.Hour)
+	ticker := time.NewTicker(15 * time.Minute)
 	for _ = range ticker.C {
 		callCmpApi()
 	}
