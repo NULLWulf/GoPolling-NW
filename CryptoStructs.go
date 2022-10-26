@@ -82,7 +82,7 @@ func cryptoStructPrint(cryptoStruct CmpResponse) string {
 		p := cryptoStruct.Data[i].CryptoQuote.USDStats
 		fmt.Fprintf(&b, "---=== Rank %v : %v ===---\n", cryptoStruct.Data[i].CmcRank, cryptoStruct.Data[i].Name)
 		fmt.Fprintf(&b, "---=== Actual Time Polled %v  ===---\n", time.Now().UTC().Format(time.RFC3339))
-		fmt.Fprintf(&b, "Hourly Time Block: $%v\n", cryptoStruct.TimeBlockUTC)
+		fmt.Fprintf(&b, "Hourly Time Block: %v\n", cryptoStruct.TimeBlockUTC)
 		fmt.Fprintf(&b, "Price: $%v\n", p.Price)
 		fmt.Fprintf(&b, "Volume 24hr: %v\n", p.Volume24hr)
 		fmt.Fprintf(&b, "Volume Change 24hr: %v\n", p.VolumeChange24hr)
