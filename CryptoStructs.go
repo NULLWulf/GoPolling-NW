@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math"
 	"strings"
+	"time"
 )
 
 // Flattened structure of CMP crypto data
@@ -17,13 +18,9 @@ type cryptoStats struct {
 
 // CmpResponse Response body of CMP api, only interested in data array of crypto objects
 type CmpResponse struct {
-	Time   string
-	Status RespStatus      `json:"status"`
-	Data   []CryptoElement `json:"data"`
-}
-
-type RespStatus struct {
-	Timestamp string `json:"timestamp"`
+	TimeBlockUTC string
+	Partition    string
+	Data         []CryptoElement `json:"data"`
 }
 
 // CryptoElement data type containing nominal and statistical data
@@ -84,7 +81,8 @@ func cryptoStructPrint(cryptoStruct CmpResponse) string {
 	for i := 0; i < len(cryptoStruct.Data); i++ {
 		p := cryptoStruct.Data[i].CryptoQuote.USDStats
 		fmt.Fprintf(&b, "---=== Rank %v : %v ===---\n", cryptoStruct.Data[i].CmcRank, cryptoStruct.Data[i].Name)
-		fmt.Fprintf(&b, "---=== Time Polled %v  ===---\n", cryptoStruct.Time)
+		fmt.Fprintf(&b, "---=== Actual Time Polled %v  ===---\n", time.Now().UTC().Format(time.RFC3339))
+		fmt.Fprintf(&b, "Hourly Time Block: $%v\n", cryptoStruct.TimeBlockUTC)
 		fmt.Fprintf(&b, "Price: $%v\n", p.Price)
 		fmt.Fprintf(&b, "Volume 24hr: %v\n", p.Volume24hr)
 		fmt.Fprintf(&b, "Volume Change 24hr: %v\n", p.VolumeChange24hr)

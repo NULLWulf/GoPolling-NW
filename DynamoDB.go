@@ -31,7 +31,7 @@ func dynamodbInsert(insert *CmpResponse, lgglyClient *loggly.ClientType) {
 
 	// create the api params
 	params := &dynamodb.PutItemInput{
-		TableName: aws.String("nwolf-top10cryptos"),
+		TableName: aws.String("nwolf-top10-cmp"),
 		Item:      insertMap,
 	}
 
