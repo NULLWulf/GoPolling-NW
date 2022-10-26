@@ -81,7 +81,8 @@ func callCmpApi() {
 		res := CmpResponse{}
 		err = json.Unmarshal(body, &res)
 		// If error during marshalling output to loggly
-		res.Time = time.Now().UTC().Format(time.RFC822Z)
+		// Month - Day - Year - Hour
+		res.Time = time.Now().UTC().Format("01-02-2006-15")
 		sort.Slice(res.Data, func(i, j int) bool {
 			return res.Data[i].CryptoQuote.USDStats.Price < res.Data[j].CryptoQuote.USDStats.Price
 		})
