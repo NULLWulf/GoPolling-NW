@@ -5,6 +5,7 @@
 *.so
 *.dylib
 .env
+student-1.pem
 
 # Test binary, built with `go test -c`
 *.test
