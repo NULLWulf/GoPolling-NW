@@ -77,12 +77,12 @@ func cryptoStructPrint(cryptoStruct CmpResponse) string {
 	var b strings.Builder
 	fmt.Fprintf(&b, "----==== Displaying Top 10 Ranked Cryptos per CoinMarket PRO API ====----\n")
 	fmt.Fprintf(&b, "----====----====----====----====----====----===----===----===----===----===---- \n")
+	fmt.Fprintf(&b, "---=== Actual Time Polled %v  ===---\n", time.Now().UTC().Format(time.RFC3339))
+	fmt.Fprintf(&b, "Hourly Time Block: %v\n", cryptoStruct.TimeBlockUTC)
 	fmt.Fprintf(&b, "\n")
 	for i := 0; i < len(cryptoStruct.Data); i++ {
 		p := cryptoStruct.Data[i].CryptoQuote.USDStats
 		fmt.Fprintf(&b, "---=== Rank %v : %v ===---\n", cryptoStruct.Data[i].CmcRank, cryptoStruct.Data[i].Name)
-		fmt.Fprintf(&b, "---=== Actual Time Polled %v  ===---\n", time.Now().UTC().Format(time.RFC3339))
-		fmt.Fprintf(&b, "Hourly Time Block: %v\n", cryptoStruct.TimeBlockUTC)
 		fmt.Fprintf(&b, "Price: $%v\n", p.Price)
 		fmt.Fprintf(&b, "Volume 24hr: %v\n", p.Volume24hr)
 		fmt.Fprintf(&b, "Volume Change 24hr: %v\n", p.VolumeChange24hr)
