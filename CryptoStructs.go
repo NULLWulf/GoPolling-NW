@@ -7,15 +7,6 @@ import (
 	"time"
 )
 
-// Flattened structure of CMP crypto data
-type cryptoStats struct {
-	name        string
-	symbol      string
-	totalSupply int
-	cmpId       int
-	perChange   USDRelativeData
-}
-
 // CmpResponse Response body of CMP api, only interested in data array of crypto objects
 type CmpResponse struct {
 	TimeBlockUTC string
