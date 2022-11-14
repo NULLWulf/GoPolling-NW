@@ -2,10 +2,8 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/joho/godotenv"
 	"github.com/nullwulf/loggly"
 	"io"
-	"log"
 	"net/http"
 	"os"
 	"sort"
@@ -21,11 +19,11 @@ func main() {
 
 	// Loads Environmental variables into program
 	// e.g AWS, Loggly CMP token.
-	err := godotenv.Load()
-	// If detects an error loading .env file terminates program
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
+	//err := godotenv.Load()
+	//// If detects an error loading .env file terminates program
+	//if err != nil {
+	//	log.Fatal("Error loading .env file")
+	//}
 	// Initial call of CMP Api
 	callCmpApi()
 	// Set to call every hour
