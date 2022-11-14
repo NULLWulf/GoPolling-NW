@@ -77,7 +77,7 @@ func cryptoStructPrint(cryptoStruct CmpResponse) string {
 		fmt.Fprintf(&b, "Volume 24hr: %v\n", p.Volume24hr)
 		fmt.Fprintf(&b, "Volume Change 24hr: %v\n", p.VolumeChange24hr)
 		fmt.Fprintf(&b, "--== Relative Movement ==--\n")
-		fmt.Fprintf(&b, "1 Hourr: %v%%\n", p.PercentChange1hr)
+		fmt.Fprintf(&b, "1 Hour: %v%%\n", p.PercentChange1hr)
 		fmt.Fprintf(&b, "24 Hour: %v%%\n", p.PercentChange24hr)
 		fmt.Fprintf(&b, "7 Day: %v%%\n", p.PercentChange7d)
 		fmt.Fprintf(&b, "30 Day: %v%%\n", p.PercentChange30d)
